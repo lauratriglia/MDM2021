@@ -7,6 +7,8 @@ from nav_msgs.msg import Odometry
 from tf import transformations
 from rt2_assignment1.srv import Position
 import math
+import actionlib
+import actionlib.msg
 import rt2_assignment1.msg 
 
 # robot state variables
@@ -15,6 +17,9 @@ yaw_ = 0
 position_ = 0
 state_ = 0
 pub_ = None
+
+#action_server
+server = None
 
 # parameters for control
 yaw_precision_ = math.pi / 9  # +/- 20 degree allowed
@@ -25,11 +30,6 @@ kp_d = 0.2
 ub_a = 0.6
 lb_a = -0.5
 ub_d = 0.6
-
-class GotoPointAction (object):
-	#create messages that are used to publish feedback/result
-	_feedback = rt2_assignment1.msg.GoToPointFeedback()
-	_result = rt2_assignment1.msg.GoToPointResult()
 
 def clbk_odom(msg):
     global position_
@@ -124,6 +124,51 @@ def done():
     twist_msg.angular.z = 0
     pub_.publish(twist_msg)
     
+def planning(goal):
+
+    global state_, desired_position_
+    global server
+
+    desired_position_.x = goal.target_pose.pose.position.x
+    desired_position_.y = goal.target_pose.pose.position.y
+
+    state_ = 0
+    rate = rospy.Rate(20)
+    success = True
+
+    feedback = rt2_assignment1.msg.PositionFeedback()
+    result = rt2_assignment1.msg.PositionResult()
+
+    while not rospy.is_shutdown():
+        if server.is_preempt_requested():
+            rospy.loginfo('Goal was preempted')
+            server.set_preempted()
+            success = False
+            break
+        elif state_ == 0:
+            feedback.stat = "Fixing the yaw"
+            feedback.actual_pose = pose_
+            server.publish_feedback(feedback)
+            fix_yaw(desired_position_)
+        elif state_ == 1:
+            feedback.stat = "Angle aligned"
+            feedback.actual_pose = pose_
+            server.publish_feedback(feedback)
+            go_straight_ahead(desired_position_)
+        elif state_ == 2:
+            feedback.stat = "Target reached!"
+            feedback.actual_pose = pose_
+            server.publish_feedback(feedback)
+            done()
+            break
+        else:
+            rospy.logerr('Unknown state!')
+
+        rate.sleep()
+    if success:
+        rospy.loginfo('Goal: Succeeded!')
+        server.set_succeeded(result)
+    
 def go_to_point(req):
     desired_position = Point()
     desired_position.x = req.x
@@ -148,6 +193,8 @@ def main():
     pub_ = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
     sub_odom = rospy.Subscriber('/odom', Odometry, clbk_odom)
     service = rospy.Service('/go_to_point', Position, go_to_point)
+    server = actionlib.SimpleActionServer('/gotopoint', rt2_assignment1.msg.PositionAction, planning, auto_start=False)
+    server.start()
     rospy.spin()
 
 if __name__ == '__main__':
