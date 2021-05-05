@@ -7,6 +7,7 @@ from nav_msgs.msg import Odometry
 from tf import transformations
 from rt2_assignment1.srv import Position
 import math
+import rt2_assignment1.msg 
 
 # robot state variables
 position_ = Point()
@@ -24,6 +25,11 @@ kp_d = 0.2
 ub_a = 0.6
 lb_a = -0.5
 ub_d = 0.6
+
+class GotoPointAction (object):
+	#create messages that are used to publish feedback/result
+	_feedback = rt2_assignment1.msg.GoToPointFeedback()
+	_result = rt2_assignment1.msg.GoToPointResult()
 
 def clbk_odom(msg):
     global position_
