@@ -5,21 +5,22 @@ import rospy
 from geometry_msgs.msg import Twist, Point
 from nav_msgs.msg import Odometry
 from tf import transformations
-from rt2_assignment1.srv import Position
 import math
 import actionlib
 import actionlib.msg
-import rt2_assignment1.msg 
+import rt2_assignment1.msg
 
 # robot state variables
 position_ = Point()
 yaw_ = 0
 position_ = 0
 state_ = 0
+
+#publisher
 pub_ = None
 
-#action_server
-server = None
+#action server
+act_s = None
 
 # parameters for control
 yaw_precision_ = math.pi / 9  # +/- 20 degree allowed
@@ -124,77 +125,61 @@ def done():
     twist_msg.angular.z = 0
     pub_.publish(twist_msg)
     
-def planning(goal):
-
-    global state_, desired_position_
-    global server
-
-    desired_position_.x = goal.target_pose.pose.position.x
-    desired_position_.y = goal.target_pose.pose.position.y
-
-    state_ = 0
-    rate = rospy.Rate(20)
+def go_to_point(goal):
+    global act_s
+    desired_position = Point()
+    desired_position.x = goal.x
+    desired_position.y = goal.y
+    des_yaw = goal.theta
+    
     success = True
-
-    feedback = rt2_assignment1.msg.PositionFeedback()
-    result = rt2_assignment1.msg.PositionResult()
-
+    rate = rospy.Rate(20)
+    change_state(0)
+    
+    feedback = rt2_assignment1.msg.PoseFeedback()
+    result = rt2_assignment1.msg.PoseResult()
+    
     while not rospy.is_shutdown():
-        if server.is_preempt_requested():
+        if act_s.is_preempt_requested():
             rospy.loginfo('Goal was preempted')
-            server.set_preempted()
+            act_s.set_preempted()
             success = False
             break
-        elif state_ == 0:
-            feedback.stat = "Fixing the yaw"
-            feedback.actual_pose = pose_
-            server.publish_feedback(feedback)
-            fix_yaw(desired_position_)
-        elif state_ == 1:
-            feedback.stat = "Angle aligned"
-            feedback.actual_pose = pose_
-            server.publish_feedback(feedback)
-            go_straight_ahead(desired_position_)
-        elif state_ == 2:
-            feedback.stat = "Target reached!"
-            feedback.actual_pose = pose_
-            server.publish_feedback(feedback)
-            done()
-            break
         else:
-            rospy.logerr('Unknown state!')
-
+            if state_ == 0:            
+                feedback.stat = "Fixing the yaw"
+                act_s.publish_feedback(feedback)
+                fix_yaw(desired_position)
+            elif state_ == 1:
+                feedback.stat = "Angle aligned"
+                act_s.publish_feedback(feedback)
+                go_straight_ahead(desired_position)
+            elif state_ == 2:
+                feedback.stat = "Yaw fixed"
+                act_s.publish_feedback(feedback)
+                fix_final_yaw(des_yaw)
+            elif state_ == 3:	    
+                feedback.stat = "Target reached!"
+                act_s.publish_feedback(feedback)
+                done()
+            else:
+                rospy.logerr('Unknown state!')
+            
         rate.sleep()
     if success:
+        result.effect = success
         rospy.loginfo('Goal: Succeeded!')
-        server.set_succeeded(result)
+        act_s.set_succeeded(result)
     
-def go_to_point(req):
-    desired_position = Point()
-    desired_position.x = req.x
-    desired_position.y = req.y
-    des_yaw = req.theta
-    change_state(0)
-    while True:
-    	if state_ == 0:
-    		fix_yaw(desired_position)
-    	elif state_ == 1:
-    		go_straight_ahead(desired_position)
-    	elif state_ == 2:
-    		fix_final_yaw(des_yaw)
-    	elif state_ == 3:
-    		done()
-    		break
-    return True
-
 def main():
-    global pub_
+    global pub_, act_s
     rospy.init_node('go_to_point')
     pub_ = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
     sub_odom = rospy.Subscriber('/odom', Odometry, clbk_odom)
-    service = rospy.Service('/go_to_point', Position, go_to_point)
-    server = actionlib.SimpleActionServer('/gotopoint', rt2_assignment1.msg.PositionAction, planning, auto_start=False)
-    server.start()
+    act_s = actionlib.SimpleActionServer(
+        '/go_to_point', rt2_assignment1.msg.PoseAction, go_to_point, auto_start=False)
+    act_s.start()
+    
     rospy.spin()
 
 if __name__ == '__main__':
