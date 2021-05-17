@@ -1,3 +1,10 @@
+/* 
+
+  author: Laura Triglia
+  
+  release date: 17/05/2021
+
+*/
 
 #include "rt2_assignment1/srv/random_position.hpp"
 #include <memory>
@@ -12,6 +19,8 @@ using std::placeholders::_2;
 using std::placeholders::_3;
 
 namespace rt2_assignment1{
+
+/* This component generates a random position */
 
 class PositionServer : public rclcpp::Node
 {

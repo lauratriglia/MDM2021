@@ -1,3 +1,11 @@
+/* 
+
+  author: Laura Triglia
+  
+  release date: 17/05/2021
+
+*/
+
 #include <chrono>
 #include <cinttypes>
 #include <memory>
@@ -20,6 +28,12 @@ using std::placeholders::_3;
 
 namespace rt2_assignment1
 {
+/**************************************************//** 
+ *  This component listens to the user's requests: 
+ *  when the robot is moving, it asks for a random
+ *  goal pose to "/position_server" that it is send
+ *  to "go_to_point" service.
+ *******************************/
 
 class StateMachine : public rclcpp::Node
 {
@@ -60,12 +74,13 @@ public:
     request_rp->y_max = 5.0;
     request_rp->y_min = -5.0; 
     
+    /*Check for the goToPoint callback*/
     timer_ = this-> create_wall_timer( 500ms, std::bind(&StateMachine::state_goal,this));
   }
   
   
  private:
- 
+/* void user_interface: service callback that set the start/stop robot state*/
    void user_interface(
          const std::shared_ptr<rmw_request_id_t> request_id,
          const std::shared_ptr<Command::Request> request,
@@ -81,7 +96,7 @@ public:
      response->ok = start;
      RCLCPP_INFO(this->get_logger(), "Request received %s", request->command.c_str());
    }
-   
+/* Periodically check if the goal is reached*/   
   void state_goal(){
     
      if(!goal_reached) return;
@@ -91,7 +106,7 @@ public:
      goToPoint_call();
    
    }
-   
+  /* Set a new goal */
    void goToPoint_call(){
    
      randomPosition_call();
@@ -108,7 +123,7 @@ public:
                                   RCLCPP_INFO(this->get_logger(), "Goal is reached!!!");};
      auto fResult = client_p -> async_send_request(request_p, goal_reached_callback);
    }
-   
+   /* Call the random positon server to retrieve the goal pose*/
    void randomPosition_call(){
    
      auto response_rp_callback = [this](rclcpp::Client<rt2_assignment1::srv::RandomPosition>::SharedFuture future){response_rp = future.get();};
