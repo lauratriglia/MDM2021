@@ -1,6 +1,10 @@
 #! /usr/bin/env python
+"""
+ author: Laura Triglia
+ 
+ release date: 17/05/2021
 
-
+"""
 import rospy
 from geometry_msgs.msg import Twist, Point
 from nav_msgs.msg import Odometry
@@ -126,6 +130,13 @@ def done():
     pub_.publish(twist_msg)
     
 def go_to_point(goal):
+
+    """ 
+    Depending on the different state of the robot, go_to_point set the correct behaviour
+    to reach the goal
+    The robot will stop only when the goal is reached or when is preempted
+        
+    """
     global act_s
     desired_position = Point()
     desired_position.x = goal.x
@@ -164,12 +175,12 @@ def go_to_point(goal):
                 done()
             else:
                 rospy.logerr('Unknown state!')
-            
-        rate.sleep()
+    
+        rate.sleep()  
     if success:
         result.effect = success
         rospy.loginfo('Goal: Succeeded!')
-        act_s.set_succeeded(result)
+        act_s.set_succeeded(result) 
     
 def main():
     global pub_, act_s

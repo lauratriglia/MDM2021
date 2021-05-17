@@ -1,8 +1,23 @@
-# First Assignment of the Research Track 2 course (Robotics Engineering / JEMARO, Unige)
+# RESEARCH TRACK- Assignment 1: action branch
+## Description of the branch
+In this folder you can find:
+- action: contains the .action file *Pose.action*, needed to modify go_to_point as an action server.
+- launch: contains the launch file *sim.launch*, that starts the simulation in a Gazebo environment.
+- scripts: contains two nodes implemented as python scripts that set the behaviour of the robot 
+  - *go_to_point*: this is the action server that manage the robot speed control, depending on the goal received.
+  - *user_interface*: sends the request to start/stop the go_to_point behaviour asking to the user what the robot needs to do. 
+- src: contains two nodes implemented as cpp file that set the behaviour of the robot
+  - *position_server*: it is the server that generates a random position.
+  - *state_machine*: manages the request of a new goal and it send the request as a goal to go_to_point action server. 
 
-The package contains the nodes and the simulation environment for controlling a mobile robot in the Gazebo simulation environment.
-To launch the node, please run:
+## How to compile and run the package
+After cloning the package, it is necessary to build the package in the path of your own workspace, with the command:
 ```
-rosrun rt2_assignment1 sim.launch
+catkin_make
 ```
-
+When the package is build successfully, you can run the .launch file to launch all the nodes and the Gazebo simulation:
+```
+roslaunch rt2_assignment1 sim.launch
+```
+## Documentation
+In the doc file, beside this ReadMe, it is possibile to find all the documentation generated with Doxygen. 

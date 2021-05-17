@@ -1,0 +1,28 @@
+\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{Description of the branch}\label{md__r_e_a_d_m_e_autotoc_md1}
+In this folder you can find\+:
+\begin{DoxyItemize}
+\item action\+: contains the .action file {\itshape Pose.\+action}, needed to modify \mbox{\hyperlink{namespacego__to__point}{go\+\_\+to\+\_\+point}} as an action server.
+\item launch\+: contains the launch file {\itshape sim.\+launch}, that starts the simulation in a Gazebo environment.
+\item scripts\+: contains two nodes implemented as python scripts that set the behaviour of the robot
+\begin{DoxyItemize}
+\item {\itshape \mbox{\hyperlink{namespacego__to__point}{go\+\_\+to\+\_\+point}}}\+: this is the action server that manage the robot speed control, depending on the goal received.
+\item {\itshape \mbox{\hyperlink{namespaceuser__interface}{user\+\_\+interface}}}\+: sends the request to start/stop the \mbox{\hyperlink{namespacego__to__point}{go\+\_\+to\+\_\+point}} behaviour asking to the user what the robot needs to do.
+\end{DoxyItemize}
+\item src\+: contains two nodes implemented as cpp file that set the behaviour of the robot
+\begin{DoxyItemize}
+\item {\itshape position\+\_\+server}\+: it is the server that generates a random position.
+\item {\itshape state\+\_\+machine}\+: manages the request of a new goal and it send the request as a goal to \mbox{\hyperlink{namespacego__to__point}{go\+\_\+to\+\_\+point}} action server.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{How to compile and run the package}\label{md__r_e_a_d_m_e_autotoc_md2}
+After cloning the package, it is necessary to build the package in the path of your own workspace, with the command\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{catkin\_make}
+\end{DoxyCode}
+
+
+When the package is build successfully, you can run the .launch file to launch all the nodes and the Gazebo simulation\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{roslaunch rt2\_assignment1 sim.launch}
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysection{Documentation}\label{md__r_e_a_d_m_e_autotoc_md3}
+In the doc file, beside this Read\+Me, it is possibile to find all the documentation generated with Doxygen. 
