@@ -1,5 +1,6 @@
-# RESEARCH TRACK- Assignment 1: action branch
-## Description of the branch
+# RESEARCH TRACK2 - Assignment 1: action branch
+The purpose of this package is to control a non-holonomic mobile robot in a Gazebo environment. The user can choose to make the robot start moving or stop it. When the user gives the command to start moving, a random pose is chosen and the robot start moving. The user has the possibility to stop the robot, even if a random pose has been already chosen. When the user gives the command to stop the robot, the robot immediately stops and waits for another random pose.
+## Description of the branch. 
 In this folder you can find:
 - action: contains the .action file *Pose.action*, needed to modify go_to_point as an action server.
 - launch: contains the launch file *sim.launch*, that starts the simulation in a Gazebo environment.
@@ -20,4 +21,4 @@ When the package is build successfully, you can run the .launch file to launch a
 roslaunch rt2_assignment1 sim.launch
 ```
 ## Documentation
-In the doc file, beside this ReadMe, it is possibile to find all the documentation generated with Doxygen. 
+In the doc folder, beside this ReadMe, it is possibile to find all the documentation generated with Doxygen.
