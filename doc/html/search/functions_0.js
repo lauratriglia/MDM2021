@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['go_5fto_5fpoint_5',['go_to_point',['../namespacego__to__point.html#a2203d17b7e563bee20ed4c988548df45',1,'go_to_point']]]
+  ['change_5fstate_41',['change_state',['../namespacego__to__point.html#a31ee48e5cae36821049b572a96b7c8be',1,'go_to_point']]],
+  ['clbk_5fodom_42',['clbk_odom',['../namespacego__to__point.html#a36304a9f313b0579f7fc69fa01695524',1,'go_to_point']]]
 ];

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['research_20track_2d_20assignment_201_3a_20action_20branch_1',['RESEARCH TRACK- Assignment 1: action branch',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['change_5fstate_1',['change_state',['../namespacego__to__point.html#a31ee48e5cae36821049b572a96b7c8be',1,'go_to_point']]],
+  ['clbk_5fodom_2',['clbk_odom',['../namespacego__to__point.html#a36304a9f313b0579f7fc69fa01695524',1,'go_to_point']]],
+  ['cmakelists_2etxt_3',['CMakeLists.txt',['../_c_make_lists_8txt.html',1,'']]]
 ];

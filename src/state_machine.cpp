@@ -1,10 +1,9 @@
-/*
-  author: Laura Triglia
-  
-  release date: 17/05/2021
-
-*/
-
+/**
+ *   author: Laura Triglia
+ * 
+ *   release date: 17/05/2021
+ *
+ */
 
 #include "ros/ros.h"
 #include "rt2_assignment1/Command.h"
@@ -18,6 +17,13 @@
 
 bool start = false;
 
+/**
+ *  The user_interfaces is a service callback that set the robot state on start or stop
+ *
+ *  \param req a rt2_assignment1::Command::Request & : is a service request, that contains the command
+ *  \param res a rt2_assignment1::Command::Request & : is a service response, that contains the value of the state of the robot (bool start)
+ *
+ */
 bool user_interface(rt2_assignment1::Command::Request &req, rt2_assignment1::Command::Response &res){
     if (req.command == "start"){
     	start = true;
@@ -28,7 +34,12 @@ bool user_interface(rt2_assignment1::Command::Request &req, rt2_assignment1::Com
     return true;
 }
 
-
+/**
+ * In the main function a while checks if the goal is reached or is preempted.
+ * If the goal is preempted, all goals are deleted and the robot stops. 
+ * If the user want to start again the robot, a new random goal is given. 
+ * If the user does not want to stop the robot, it continues to move to the goal.   
+ */
 int main(int argc, char **argv)
 {
    ros::init(argc, argv, "state_machine");
@@ -65,7 +76,7 @@ int main(int argc, char **argv)
            ros::spinOnce();
            if(start==false)
            {
-              /* the goal is preemted, so we need to cancel all the goals, in order to stop the robot*/
+              /* the goal is preempted, so we need to cancel all the goals, in order to stop the robot*/
               ac.cancelAllGoals();
               goal_reached=false;
 
