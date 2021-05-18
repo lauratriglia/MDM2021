@@ -1,4 +1,5 @@
-# RESEARCH TRACK 2- Assignment 1: main branch
+# RESEARCH TRACK 2 - Assignment 1: main branch
+The purpose of this package is to control a non-holomonic mobile robot in a Gazebo or in a Coppelia environment. The user can choose to start the robot or to stop it. In the moment when the user gives the commando to move the robot, a random pose is chosen and the robot start moving in that direction. This movement continues until the robot reachs the goal and a new random pose is sent. 
 ## Description of the branch
 
 In the main branch you can find four nodes: two nodes implemented as python scripts and the other two as C++ file. Each folder contains:
