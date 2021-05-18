@@ -1,10 +1,10 @@
-/* 
-
-  author: Laura Triglia
-  
-  release date: 17/05/2021
-
-*/
+/** 
+ *
+ * author: Laura Triglia
+ * 
+ * release date: 17/05/2021
+ *
+ */
 
 #include "rt2_assignment1/srv/random_position.hpp"
 #include <memory>
@@ -20,12 +20,19 @@ using std::placeholders::_3;
 
 namespace rt2_assignment1{
 
-/* This component generates a random position */
+/**
+ * This component generates a random position 
+ */
 
 class PositionServer : public rclcpp::Node
 {
 
 public:
+
+/**
+ * The constructor instanciates the server
+ * \param option a const rclcpp::NodeOptions &: is used to run this node as a component
+ */
   PositionServer(const rclcpp::NodeOptions &options) : Node("random_position_server", options)
   {
     /* Initialize the service */
@@ -34,10 +41,21 @@ public:
   
 private:
 
+ /**
+  * Generate a random numer
+  * \param M a double: is the lower bound
+  * \param N a double: is the upper bound
+  * \retval randMToN a double: return a random number linearly distributed between M and N
+  */
   double randMToN(double M, double N)
   {     return M + (rand() / ( RAND_MAX / (N-M) ) ) ; }
 
-
+ /**
+  * This is the service callback that generate a random (x,y,theta) pose
+  * \param request_id a const std::shared_ptr<rmw_request_id_t> : is a service call header
+  * \param request a const std::shared_ptr<RandomPosition::Request> : is a service request, that contains the (x,y) ranges
+  * \param response a const std::shared_ptr<RandomPosition::Response> : is a service response, that contain (x,y,theta)
+  */
   void myrandom (
       const std::shared_ptr<rmw_request_id_t> request_id,
       const std::shared_ptr<RandomPosition::Request> request,
