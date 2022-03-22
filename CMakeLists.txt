@@ -61,6 +61,7 @@ find_package(catkin REQUIRED COMPONENTS
    Command.srv
    Position.srv
    RandomPosition.srv
+   SetVel.srv
  )
 
 ## Generate actions in the 'action' folder
@@ -71,7 +72,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate added messages and services with any dependencies listed here
  generate_messages(
-   DEPENDENCIES actionlib_msgs
+   DEPENDENCIES actionlib_msgs std_msgs
  )
 
 ################################################

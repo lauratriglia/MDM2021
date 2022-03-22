@@ -9,10 +9,13 @@ import rospy
 from geometry_msgs.msg import Twist, Point
 from nav_msgs.msg import Odometry
 from tf import transformations
+import numpy as np
 import math
 import actionlib
 import actionlib.msg
 import rt2_assignment1.msg
+
+from rt2_assignment1.srv import SetVel, SetVelResponse, Command
 
 # robot state variables
 position_ = Point()
@@ -26,6 +29,9 @@ pub_ = None
 #action server
 act_s = None
 
+#velocity server
+vel_s = None
+
 # parameters for control
 yaw_precision_ = math.pi / 9  # +/- 20 degree allowed
 yaw_precision_2_ = math.pi / 90  # +/- 2 degree allowed
@@ -35,6 +41,14 @@ kp_d = 0.2
 ub_a = 0.6
 lb_a = -0.5
 ub_d = 0.6
+
+def srv_set_vel(req):
+    global ub_a, ub_d
+    
+    ub_a = req.angular
+    ub_d = req.linear
+    rospy.logdebug("RECEIVED lin: {} ang:{}".format(req.linear, req.angular))
+    return SetVelResponse()
 
 def clbk_odom(msg):
     global position_
@@ -71,10 +85,9 @@ def fix_yaw(des_pos):
     twist_msg = Twist()
     if math.fabs(err_yaw) > yaw_precision_2_:
         twist_msg.angular.z = kp_a*err_yaw
-        if twist_msg.angular.z > ub_a:
-            twist_msg.angular.z = ub_a
-        elif twist_msg.angular.z < lb_a:
-            twist_msg.angular.z = lb_a
+        if np.abs(twist_msg.angular.z) > ub_a:
+            twist_msg.angular.z = np.sign(twist_msg.angular.z)*ub_a
+            
     pub_.publish(twist_msg)
     # state change conditions
     if math.fabs(err_yaw) <= yaw_precision_2_:
@@ -191,6 +204,7 @@ def main():
         '/go_to_point', rt2_assignment1.msg.PoseAction, go_to_point, auto_start=False)
     act_s.start()
     
+    vel_s = rospy.Service('/set_vel', SetVel, srv_set_vel)
     rospy.spin()
 
 if __name__ == '__main__':
