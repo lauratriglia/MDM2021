@@ -1,8 +1,19 @@
 #! /usr/bin/env python
 """
- author: Laura Triglia
+.. module:: go_to_point
+	:platform: Unix
+	:synopsis: Node implementing the go_to_point behavior
+.. moduleauthor:: Carmine Recchiuto <carmine.recchiuto@dibris.unige.it>, Laura Triglia <4494106@studenti.unige.it>
+ Publishes to:
+ 	/cmd_vel (gemoetry_msgs.msg.Twist)
+ ServiceServer:
+ 	/set_vel (rt2_assignment1.srv.SetVel)
+ ActionServer:
+ 	/go_to_point(rt2_assignment1.action.PoseAction
  
- release date: 17/05/2021
+ Description:
+ 
+ This node controls the behavior of the robot via an action server.
 
 """
 import rospy
@@ -43,6 +54,13 @@ lb_a = -0.5
 ub_d = 0.6
 
 def srv_set_vel(req):
+    """
+    /set_vel server
+    
+    Args:
+    	req(SetVel): set_vel request
+    	
+    """
     global ub_a, ub_d
     
     ub_a = req.angular
