@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="_r_e_a_d_m_e_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>RESEARCH<sp/>TRACK2<sp/>-<sp/>Assignment<sp/>1:<sp/>action<sp/>branch</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>purpose<sp/>of<sp/>this<sp/>package<sp/>is<sp/>to<sp/>control<sp/>a<sp/>non-holonomic<sp/>mobile<sp/>robot<sp/>in<sp/>a<sp/>Gazebo<sp/>environment.<sp/>The<sp/>user<sp/>can<sp/>choose<sp/>to<sp/>make<sp/>the<sp/>robot<sp/>start<sp/>moving<sp/>or<sp/>stop<sp/>it.<sp/>When<sp/>the<sp/>user<sp/>gives<sp/>the<sp/>command<sp/>to<sp/>start<sp/>moving,<sp/>a<sp/>random<sp/>pose<sp/>is<sp/>chosen<sp/>and<sp/>the<sp/>robot<sp/>start<sp/>moving.<sp/>The<sp/>user<sp/>has<sp/>the<sp/>possibility<sp/>to<sp/>stop<sp/>the<sp/>robot,<sp/>even<sp/>if<sp/>a<sp/>random<sp/>pose<sp/>has<sp/>been<sp/>already<sp/>chosen.<sp/>When<sp/>the<sp/>user<sp/>gives<sp/>the<sp/>command<sp/>to<sp/>stop<sp/>the<sp/>robot,<sp/>the<sp/>robot<sp/>immediately<sp/>stops<sp/>and<sp/>waits<sp/>for<sp/>another<sp/>random<sp/>pose.</highlight></codeline>
+<codeline><highlight class="normal">##<sp/>Description<sp/>of<sp/>the<sp/>branch.<sp/></highlight></codeline>
+<codeline><highlight class="normal">In<sp/>this<sp/>folder<sp/>you<sp/>can<sp/>find:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>action:<sp/>contains<sp/>the<sp/>.action<sp/>file<sp/>*Pose.action*,<sp/>needed<sp/>to<sp/>modify<sp/>go_to_point<sp/>as<sp/>an<sp/>action<sp/>server.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>launch:<sp/>contains<sp/>the<sp/>launch<sp/>file<sp/>*sim.launch*,<sp/>that<sp/>starts<sp/>the<sp/>simulation<sp/>in<sp/>a<sp/>Gazebo<sp/>environment.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>scripts:<sp/>contains<sp/>two<sp/>nodes<sp/>implemented<sp/>as<sp/>python<sp/>scripts<sp/>that<sp/>set<sp/>the<sp/>behaviour<sp/>of<sp/>the<sp/>robot<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>*go_to_point*:<sp/>this<sp/>is<sp/>the<sp/>action<sp/>server<sp/>that<sp/>manage<sp/>the<sp/>robot<sp/>speed<sp/>control,<sp/>depending<sp/>on<sp/>the<sp/>goal<sp/>received.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>*user_interface*:<sp/>sends<sp/>the<sp/>request<sp/>to<sp/>start/stop<sp/>the<sp/>go_to_point<sp/>behaviour<sp/>asking<sp/>to<sp/>the<sp/>user<sp/>what<sp/>the<sp/>robot<sp/>needs<sp/>to<sp/>do.<sp/></highlight></codeline>
+<codeline><highlight class="normal">-<sp/>src:<sp/>contains<sp/>two<sp/>nodes<sp/>implemented<sp/>as<sp/>cpp<sp/>file<sp/>that<sp/>set<sp/>the<sp/>behaviour<sp/>of<sp/>the<sp/>robot</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>*position_server*:<sp/>it<sp/>is<sp/>the<sp/>server<sp/>that<sp/>generates<sp/>a<sp/>random<sp/>position.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>*state_machine*:<sp/>manages<sp/>the<sp/>request<sp/>of<sp/>a<sp/>new<sp/>goal<sp/>and<sp/>it<sp/>send<sp/>the<sp/>request<sp/>as<sp/>a<sp/>goal<sp/>to<sp/>go_to_point<sp/>action<sp/>server.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>How<sp/>to<sp/>compile<sp/>and<sp/>run<sp/>the<sp/>package</highlight></codeline>
+<codeline><highlight class="normal">After<sp/>cloning<sp/>the<sp/>package,<sp/>it<sp/>is<sp/>necessary<sp/>to<sp/>build<sp/>the<sp/>package<sp/>in<sp/>the<sp/>path<sp/>of<sp/>your<sp/>own<sp/>workspace,<sp/>with<sp/>the<sp/>command:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">catkin_make</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">When<sp/>the<sp/>package<sp/>is<sp/>build<sp/>successfully,<sp/>you<sp/>can<sp/>run<sp/>the<sp/>.launch<sp/>file<sp/>to<sp/>launch<sp/>all<sp/>the<sp/>nodes<sp/>and<sp/>the<sp/>Gazebo<sp/>simulation:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">roslaunch<sp/>rt2_assignment1<sp/>sim.launch</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">##<sp/>Documentation</highlight></codeline>
+<codeline><highlight class="normal">In<sp/>the<sp/>doc<sp/>folder,<sp/>beside<sp/>this<sp/>ReadMe,<sp/>it<sp/>is<sp/>possibile<sp/>to<sp/>find<sp/>all<sp/>the<sp/>documentation<sp/>generated<sp/>with<sp/>Doxygen.</highlight></codeline>
+    </programlisting>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>

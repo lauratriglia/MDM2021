@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="md__r_e_a_d_m_e" kind="page">
+    <compoundname>md_README</compoundname>
+    <title>RESEARCH TRACK2 - Assignment 1: action branch</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The purpose of this package is to control a non-holonomic mobile robot in a Gazebo environment. The user can choose to make the robot start moving or stop it. When the user gives the command to start moving, a random pose is chosen and the robot start moving. The user has the possibility to stop the robot, even if a random pose has been already chosen. When the user gives the command to stop the robot, the robot immediately stops and waits for another random pose. </para>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md1">
+<title>Description of the branch.</title>
+<para>In this folder you can find:<itemizedlist>
+<listitem><para>action: contains the .action file <emphasis>Pose.action</emphasis>, needed to modify <ref refid="namespacego__to__point" kindref="compound">go_to_point</ref> as an action server.</para>
+</listitem><listitem><para>launch: contains the launch file <emphasis>sim.launch</emphasis>, that starts the simulation in a Gazebo environment.</para>
+</listitem><listitem><para>scripts: contains two nodes implemented as python scripts that set the behaviour of the robot<itemizedlist>
+<listitem><para><emphasis><ref refid="namespacego__to__point" kindref="compound">go_to_point</ref></emphasis>: this is the action server that manage the robot speed control, depending on the goal received.</para>
+</listitem><listitem><para><emphasis><ref refid="namespaceuser__interface" kindref="compound">user_interface</ref></emphasis>: sends the request to start/stop the <ref refid="namespacego__to__point" kindref="compound">go_to_point</ref> behaviour asking to the user what the robot needs to do.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>src: contains two nodes implemented as cpp file that set the behaviour of the robot<itemizedlist>
+<listitem><para><emphasis>position_server</emphasis>: it is the server that generates a random position.</para>
+</listitem><listitem><para><emphasis>state_machine</emphasis>: manages the request of a new goal and it send the request as a goal to <ref refid="namespacego__to__point" kindref="compound">go_to_point</ref> action server.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md2">
+<title>How to compile and run the package</title>
+<para>After cloning the package, it is necessary to build the package in the path of your own workspace, with the command: <programlisting><codeline><highlight class="normal">catkin_make</highlight></codeline>
+</programlisting></para>
+<para>When the package is build successfully, you can run the .launch file to launch all the nodes and the Gazebo simulation: <programlisting><codeline><highlight class="normal">roslaunch<sp/>rt2_assignment1<sp/>sim.launch</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md3">
+<title>Documentation</title>
+<para>In the doc folder, beside this ReadMe, it is possibile to find all the documentation generated with Doxygen. </para>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

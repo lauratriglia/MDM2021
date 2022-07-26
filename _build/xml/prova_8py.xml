@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="prova_8py" kind="file" language="Python">
+    <compoundname>prova.py</compoundname>
+    <innernamespace refid="namespaceprova">prova</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceprova" refkind="compound"><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="2"><highlight class="stringliteral">..<sp/>module::<sp/>go_to_point</highlight></codeline>
+<codeline lineno="3"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:platform:<sp/>Unix</highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:synopsis:<sp/>Node<sp/>implementing<sp/>the<sp/>go_to_point<sp/>behavior</highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"><sp/>This<sp/>node<sp/>controls<sp/>the<sp/>behavior<sp/>of<sp/>the<sp/>robot<sp/>via<sp/>an<sp/>action<sp/>server.</highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/>Publishes<sp/>to:</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>/cmd_vel<sp/>(geometry_msgs.msg.Twist)</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/></highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral"><sp/>ServiceServer:</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>/set_vel<sp/>(rt2_assignment1.srv.SetVel)</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"><sp/></highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"><sp/>ActionServer:</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>/go_to_point(rt2_assignment1.action.PoseAction</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="prova.py"/>
+  </compounddef>
+</doxygen>
